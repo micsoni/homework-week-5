@@ -58,8 +58,16 @@ db.sync()
 //using body-parser
 app.use(bodyParser.json());
 
+const titleValidation = (req, res, next) => {
+  if (req.body.title == null) {
+    res.status(400).send("Your movie must have a title");
+  } else {
+    next();
+  }
+};
+
 //create a new movie resource
-app.post("/movies", (req, res, next) => {
+app.post("/movies", titleValidation, (req, res, next) => {
   Movie.create(req.body)
     .then(movie => {
       res.status(201).json(movie);
