@@ -6,7 +6,7 @@ const port = 3000;
 // middleware to validate if is a string or empty
 const messageValidator = (req, res, next) => {
   if (!req.body.text || req.body.text.length === 0) {
-    res.status(400).end();
+    res.status(400).send("Your message must have a valid 'text' property");
   } else {
     next();
   }
